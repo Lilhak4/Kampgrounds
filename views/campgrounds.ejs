@@ -1,6 +1,7 @@
 <% include partials/header %>
 <h1>This is Campgrounds Page</h1>
-<% campgrounds.forEach((campground) => { %>
+<a href="/campgrounds/new">Add New Campground</a>
+<% campgrounds.forEach((campground)=> { %>
 <div>
   <h4>
     <%= campground.name %>
