@@ -10,17 +10,19 @@ app.set("view engine", "ejs");
 
 var campgroundSchema = new mongoose.Schema({
   name: String,
-  image: String
+  image: String,
+  description: String
 });
 // MAKING RELATION BETWEEN SCHEMA AND MODEL
 var Campground = mongoose.model("Campground", campgroundSchema);
 
 // Campground.create({
 //   name: "Salmon Creek",
-//   image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+//   image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
+//   description: "A discrete camping area that is close to a fishing creek"
 // }, (err, campground) => {
 //   if (err) {
-//     console.log("Error")
+//     console.log(err)
 //   } else {
 //     console.log('NEWLY CREATED CAMPGROUND');
 //   }
@@ -36,7 +38,7 @@ app.get('/campgrounds', (req, res) => {
     if (err) {
       console.log(err)
     } else {
-      res.render('campgrounds', { campgrounds: campgrounds });
+      res.render('index', { campgrounds: campgrounds });
     }
   });
 });
@@ -59,6 +61,10 @@ app.post('/campgrounds', (req, res) => {
 app.get('/campgrounds/new', (req, res) => {
   res.render('new');
 })
+
+app.get('/campgrounds/:id', (req, res) => {
+  res.render('show');
+});
 
 app.listen(3000, () => {
   console.log("Yelp Camp Server Online");
