@@ -63,7 +63,13 @@ app.get('/campgrounds/new', (req, res) => {
 })
 
 app.get('/campgrounds/:id', (req, res) => {
-  res.render('show');
+  Campground.findById(req.params.id, (err, foundCampground) => {
+    if (err) {
+      console.log(err)
+    } else {
+      res.render('show', { campground: foundCampground });
+    }
+  });
 });
 
 app.listen(3000, () => {
