@@ -1,8 +1,11 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var app = express();
-var Campground = require('./models/campgrounds')
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const app = express();
+const Campground = require('./models/campground');
+const seedDB = require('./seeds');
+
+seedDB();
 
 // newurlparser used because of deprecating url error, mongo version is greater than 3.1.1
 mongoose.connect('mongodb://localhost/yelp-camp', { useNewUrlParser: true });
@@ -57,7 +60,7 @@ app.get('/campgrounds/new', (req, res) => {
 })
 
 app.get('/campgrounds/:id', (req, res) => {
-  Campground.findById(req.params.id, (err, foundCampground) => {
+  Campground.findById(req.params.id).populate("comments").exec(function (err, foundCampground) {
     if (err) {
       console.log(err)
     } else {
