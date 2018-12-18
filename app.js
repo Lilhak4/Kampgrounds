@@ -2,19 +2,12 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
+var Campground = require('./models/campgrounds')
 
 // newurlparser used because of deprecating url error, mongo version is greater than 3.1.1
 mongoose.connect('mongodb://localhost/yelp-camp', { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-
-var campgroundSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  description: String
-});
-// MAKING RELATION BETWEEN SCHEMA AND MODEL
-var Campground = mongoose.model("Campground", campgroundSchema);
 
 // Campground.create({
 //   name: "Salmon Creek",
