@@ -7,11 +7,11 @@ const Comment = require('./models/comment')
 const seedDB = require('./seeds');
 
 seedDB();
-
 // newurlparser used because of deprecating url error, mongo version is greater than 3.1.1
 mongoose.connect('mongodb://localhost/yelp-camp', { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
 
 // Campground.create({
 //   name: "Salmon Creek",

@@ -33,7 +33,8 @@
         <% campground.comments.forEach((comment)=> { %>
         <div class="row">
           <div class="col-md-12">
-            <%= comment.author %>
+            <strong>
+              <%= comment.author %></strong>
             <span class="pull-right">10</span>
             <p>
               <%= comment.text %>
