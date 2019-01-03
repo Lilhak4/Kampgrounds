@@ -140,6 +140,11 @@ app.post('/login', passport.authenticate("local",
     res.send('logic logic logic')
   });
 
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/campgrounds');
+});
+
 app.listen(3000, () => {
   console.log("Yelp Camp Server Online");
 });
