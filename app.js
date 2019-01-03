@@ -22,6 +22,12 @@ app.use(require('express-session')({
   resave: false,
   saveuninitialized: false
 }));
+app.use(passport.initialize());
+app.use(passport.session());
+// method from passport
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.get('/', (req, res) => {
   res.render('landing')
@@ -101,6 +107,38 @@ app.post('/campgrounds/:id/comments', (req, res) => {
   // connect new comment to campground
   // redirect back to cg show page
 });
+
+// AUTH ROUTES
+app.get('/register', (req, res) => {
+  res.render('register')
+});
+
+app.post('/register', (req, res) => {
+  // passport method
+  var newUser = new User({ username: req.body.username });
+  User.register(newUser, req.body.password, (err, user) => {
+    if (err) {
+      console.log(err);
+      return res.render('register')
+    }
+    passport.authenticate("local")(req, res, () => {
+      res.redirect('/campgrounds');
+    });
+  });
+});
+
+// login
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+app.post('/login', passport.autheneticate("local",
+  {
+    successRedirect: "/campgrounds",
+    failureRedirect: "/login"
+  }), (req, res) => {
+    res.send('logic logic logic')
+  });
 
 app.listen(3000, () => {
   console.log("Yelp Camp Server Online");
