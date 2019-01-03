@@ -1,29 +1,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 const app = express();
 const Campground = require('./models/campground');
-const Comment = require('./models/comment')
+const Comment = require('./models/comment');
+const User = require('./models/user');
 const seedDB = require('./seeds');
 
-seedDB();
 // newurlparser used because of deprecating url error, mongo version is greater than 3.1.1
 mongoose.connect('mongodb://localhost/yelp-camp', { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+seedDB();
 
-// Campground.create({
-//   name: "Salmon Creek",
-//   image: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-//   description: "A discrete camping area that is close to a fishing creek"
-// }, (err, campground) => {
-//   if (err) {
-//     console.log(err)
-//   } else {
-//     console.log('NEWLY CREATED CAMPGROUND');
-//   }
-// });
+// PASSPORT CONFIG
+app.use(require('express-session')({
+  secret: 'My name backwards in lilhak',
+  resave: false,
+  saveuninitialized: false
+}));
 
 app.get('/', (req, res) => {
   res.render('landing')
