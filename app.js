@@ -132,7 +132,7 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
-app.post('/login', passport.autheneticate("local",
+app.post('/login', passport.authenticate("local",
   {
     successRedirect: "/campgrounds",
     failureRedirect: "/login"
