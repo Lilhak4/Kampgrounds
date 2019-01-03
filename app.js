@@ -16,7 +16,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 seedDB();
 
-// PASSPORT CONFIG
+// ------PASSPORT CONFIG------
 app.use(require('express-session')({
   secret: 'My name backwards in lilhak',
   resave: false,
@@ -29,14 +29,20 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Middleware
+// -----MIDDLEWARE-----
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
   res.redirect("/login");
 }
+// this passes the currentUser variable to all routes
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
 
+// -----ROUTES-----
 app.get('/', (req, res) => {
   res.render('landing')
 });
@@ -47,7 +53,7 @@ app.get('/campgrounds', (req, res) => {
     if (err) {
       console.log(err)
     } else {
-      res.render('campgrounds/index', { campgrounds: campgrounds });
+      res.render('campgrounds/index', { campgrounds: campgrounds, currentUser: req.user });
     }
   });
 });
@@ -116,7 +122,7 @@ app.post('/campgrounds/:id/comments', isLoggedIn, (req, res) => {
   // redirect back to cg show page
 });
 
-// AUTH ROUTES
+//-----AUTH ROUTES-----
 app.get('/register', (req, res) => {
   res.render('register')
 });
@@ -153,7 +159,7 @@ app.get('/logout', (req, res) => {
   res.redirect('/campgrounds');
 });
 
-// Server
+//-----Server-----
 app.listen(3000, () => {
   console.log("Yelp Camp Server Online");
 });
