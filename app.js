@@ -41,7 +41,7 @@ app.use((req, res, next) => {
 });
 
 app.use(commentRoute);
-app.use(campgroundRoute);
+app.use('/campgrounds', campgroundRoute);
 app.use(indexRoute);
 
 //-----Server-----
