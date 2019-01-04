@@ -9,9 +9,9 @@ const Comment = require('./models/comment');
 const User = require('./models/user');
 const seedDB = require('./seeds');
 
+const indexRoute = require('./routes/index')
 const campgroundRoute = require('./routes/campgrounds');
 const commentRoute = require('./routes/comments');
-const indexRoute = require('./routes/index')
 
 // newurlparser used because of deprecating url error, mongo version is greater than 3.1.1
 mongoose.connect('mongodb://localhost/yelp-camp', { useNewUrlParser: true });
@@ -40,11 +40,12 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(commentRoute);
+// -----ROUTES-----
+app.use('/', indexRoute);
 app.use('/campgrounds', campgroundRoute);
-app.use(indexRoute);
+app.use('/campgrounds/:id/comments', commentRoute);
 
-//-----Server-----
+// -----SERVER-----
 app.listen(3000, () => {
   console.log("Yelp Camp Server Online");
 });

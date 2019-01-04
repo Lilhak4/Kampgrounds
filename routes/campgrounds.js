@@ -29,10 +29,12 @@ router.post('/', (req, res) => {
   });
 });
 
+// CAMPGROUNDS NEW
 router.get('/new', isLoggedIn, (req, res) => {
   res.render('campgrounds/new');
 })
 
+// CAMPGROUNDS ID
 router.get('/:id', (req, res) => {
   Campground.findById(req.params.id).populate("comments").exec(function (err, foundCampground) {
     if (err) {
@@ -43,6 +45,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// MIDDLEWARE
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();

@@ -1,9 +1,10 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const Campground = require('../models/campground')
 const Comment = require('../models/comment')
 
-router.get('/campgrounds/:id/comments/new', isLoggedIn, (req, res) => {
+// COMMENTS NEW
+router.get('/new', isLoggedIn, (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
     if (err) {
       console.log(err);
@@ -13,7 +14,8 @@ router.get('/campgrounds/:id/comments/new', isLoggedIn, (req, res) => {
   });
 });
 
-router.post('/campgrounds/:id/comments', isLoggedIn, (req, res) => {
+// COMMENTS POST
+router.post('/', isLoggedIn, (req, res) => {
   // lookup cg by id
   Campground.findById(req.params.id, (err, campground) => {
     if (err) {
@@ -32,11 +34,9 @@ router.post('/campgrounds/:id/comments', isLoggedIn, (req, res) => {
       })
     }
   });
-  // create new comment
-  // connect new comment to campground
-  // redirect back to cg show page
 });
 
+// MIDDLEWARE
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
