@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
+router.post('/', isLoggedIn, (req, res) => {
   // get data from form and add to campgrounds array
   var name = req.body.name;
   var image = req.body.image;
