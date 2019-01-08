@@ -51,7 +51,7 @@ router.get('/:id', (req, res) => {
 
 // EDIT CAMPGROUND
 router.get('/:id/edit', (req, res) => {
-  res.send('this is the edit route');
+  res.render('campgrounds/edit')
 });
 // UPDATE CAMPGROUND
 
