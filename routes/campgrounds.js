@@ -73,6 +73,11 @@ router.put('/:id', (req, res) => {
   });
 });
 
+// DESTROY CAMPGROUND
+router.delete('/:id', (req, res) => {
+  res.send('DELETED');
+});
+
 // MIDDLEWARE
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
