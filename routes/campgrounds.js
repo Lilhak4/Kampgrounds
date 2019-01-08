@@ -75,7 +75,13 @@ router.put('/:id', (req, res) => {
 
 // DESTROY CAMPGROUND
 router.delete('/:id', (req, res) => {
-  res.send('DELETED');
+  Campground.findByIdAndRemove(req.params.id, (err) => {
+    if (err) {
+      res.redirect('/campgrounds')
+    } else {
+      res.redirect('/campgrounds')
+    }
+  });
 });
 
 // MIDDLEWARE
