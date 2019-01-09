@@ -41,6 +41,10 @@ router.post('/', isLoggedIn, (req, res) => {
   });
 });
 
+router.get('/:comments_id/edit', (req, res) => {
+  res.send('edit comments');
+});
+
 // MIDDLEWARE
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
