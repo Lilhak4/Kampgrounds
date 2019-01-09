@@ -108,12 +108,34 @@ router.delete('/:id', (req, res) => {
   });
 });
 
-// MIDDLEWARE
+// MIDDLEWARE (req, res, next) always
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
   res.redirect("/login");
+}
+
+function checkCampgroundOwnership(req, res, next) {
+  if (req.isAuthenticated()) {
+    Campground.findById(req.params.id, (err, foundCampground) => {
+      if (err) {
+        console.log(err)
+        res.redirect('/campgrounds')
+      } else {
+        // does user own campground?
+        // method of mongoose that returns useable id 
+        if (foundCampground.author.id.equals(req.user._id)) {
+          next();
+        } else {
+          res.send('YOU DO NOT HAVE PERMISSION TO DO THAT');
+        }
+      }
+    });
+  } else {
+    res.redirect('back');
+  }
+
 }
 
 module.exports = router;
