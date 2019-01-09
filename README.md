@@ -9,12 +9,12 @@ The functions of this site are:
 - Edit a campground
 
 Also...
-Authentication 
--Creating campground
--Writing comment
-Authorization
--Editing campground or comment
--Deleting campground or comment
+**Authentication** 
+- Creating campground
+- Writing comment
+**Authorization**
+- Editing campground or comment
+- Deleting campground or comment
 
 
 *This is so I can hammer this project out and move on to the next thing.*
