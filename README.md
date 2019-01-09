@@ -9,10 +9,10 @@ The functions of this site are:
 - Edit a campground
 
 Also...
-**Authentication** 
+### Authentication 
 - Creating campground
 - Writing comment
-**Authorization**
+### Authorization
 - Editing campground or comment
 - Deleting campground or comment
 
