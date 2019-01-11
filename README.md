@@ -1,5 +1,5 @@
 ## Campgrounds CRUD
-# A personal project to create a site to search for campgrounds using JavaScript and Node.js.
+# A personal project to create campgrounds and comment on them using JavaScript and Node.js.
 A refresher project for me. Going back to the basics of CRUD, REST, and using bootstrap as a shortcut to expedite the styling.
 The functions of this site are:
 - Sign up to website
