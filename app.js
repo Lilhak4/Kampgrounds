@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
+// flash needs to be before passport config or a bug will occur
 app.use(flash());
 // seed the DB
 // seedDB();
@@ -39,9 +40,10 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // -----MIDDLEWARE-----
-// this passes the currentUser variable to all routes
+// this passes the these variables to all views and routes
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.message = req.flash('error')
   next();
 });
 
