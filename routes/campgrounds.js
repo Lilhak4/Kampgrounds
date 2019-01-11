@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const middleware = require('../middleware');
 const Campground = require('../models/campground')
 
 router.get('/', (req, res) => {
