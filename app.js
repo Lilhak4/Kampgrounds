@@ -43,7 +43,8 @@ passport.deserializeUser(User.deserializeUser());
 // this passes the these variables to all views and routes
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
-  res.locals.message = req.flash('error')
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
   next();
 });
 
