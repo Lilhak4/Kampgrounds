@@ -13,3 +13,17 @@
 .delete-form {
   display: inline;
 }
+
+#map {
+  width: 57.5vw;
+  height: 34.72222222222222vh;
+}
+
+#comments {
+  padding-bottom: 2vh;
+}
+
+.lead {
+  padding-top: 2vh;
+  text-align: center;
+}
