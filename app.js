@@ -1,3 +1,5 @@
+const dotenv = require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -5,9 +7,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
-const geojson = require('geojson');
-const request = require('request');
-const path = require('path');
 const app = express();
 const Campground = require('./models/campground');
 const Comment = require('./models/comment');
