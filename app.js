@@ -56,23 +56,6 @@ app.use('/', indexRoute);
 app.use('/campgrounds', campgroundRoute);
 app.use('/campgrounds/:id/comments', commentRoute);
 
-var ISS_URL = "https://api.wheretheiss.at/v1/satellites/25544";
-
-app.get('/findiss', function (req, res) {
-  request(ISS_URL, function (err, resp, body) {
-    if (err) {
-      console.log(err);
-      res.status(400).json({ error: 'Unable to contact ISS API' });
-      return;
-    }
-
-    var apiResponse = JSON.parse(body);
-    var issGeoJSON = geojson.parse([apiResponse], { Point: ['latitude', 'longitude'] });
-
-    res.json(issGeoJSON);
-  });
-});
-
 // -----SERVER-----
 app.listen(3000, () => {
   console.log("Yelp Camp Server Online");
