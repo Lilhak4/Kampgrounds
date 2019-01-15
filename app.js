@@ -5,6 +5,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
+const geojson = require('geojson');
+const request = require('request');
+const path = require('path');
 const app = express();
 const Campground = require('./models/campground');
 const Comment = require('./models/comment');
@@ -52,6 +55,23 @@ app.use((req, res, next) => {
 app.use('/', indexRoute);
 app.use('/campgrounds', campgroundRoute);
 app.use('/campgrounds/:id/comments', commentRoute);
+
+var ISS_URL = "https://api.wheretheiss.at/v1/satellites/25544";
+
+app.get('/findiss', function (req, res) {
+  request(ISS_URL, function (err, resp, body) {
+    if (err) {
+      console.log(err);
+      res.status(400).json({ error: 'Unable to contact ISS API' });
+      return;
+    }
+
+    var apiResponse = JSON.parse(body);
+    var issGeoJSON = geojson.parse([apiResponse], { Point: ['latitude', 'longitude'] });
+
+    res.json(issGeoJSON);
+  });
+});
 
 // -----SERVER-----
 app.listen(3000, () => {
