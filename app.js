@@ -9,7 +9,7 @@ const app = express();
 const Campground = require('./models/campground');
 const Comment = require('./models/comment');
 const User = require('./models/user');
-const seedDB = require('./seeds');
+// const seedDB = require('./seeds');
 
 const indexRoute = require('./routes/index')
 const campgroundRoute = require('./routes/campgrounds');
