@@ -38,12 +38,13 @@ router.get('/login', (req, res) => {
 });
 
 // LOGIN LOGIC ROUTE
-router.post('/login', passport.authenticate("local",
+router.post("/login", passport.authenticate("local",
   {
     successRedirect: "/campgrounds",
-    failureRedirect: "/login"
+    failureRedirect: "/login",
+    failureFlash: true,
+    successFlash: 'Welcome to Kampgrounds!'
   }), (req, res) => {
-    req.flash('success', 'Welcome back ' + user.username);
   });
 
 // LOGOUT ROUT
