@@ -85,6 +85,7 @@ router.get('/:id/edit', middleware.checkCampgroundOwnership, (req, res) => {
 router.put("/:id", middleware.checkCampgroundOwnership, (req, res) => {
   geocoder.geocode(req.body.location, (err, data) => {
     if (err || !data.length) {
+      console.log(err);
       req.flash('error', 'Invalid address');
       return res.redirect('back');
     }
