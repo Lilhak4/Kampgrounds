@@ -7,7 +7,7 @@ const Campground = require('../models/campground');
 const options = {
   provider: 'google',
   httpAdapter: 'https',
-  apiKey: process.env.AIzaSyCDZWQrr - 12QJt07J9o655tF27Wiu5ofz4,
+  apiKey: process.env.GEOCODER_API_KEY,
   formatter: null
 };
 
