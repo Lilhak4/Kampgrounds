@@ -17,7 +17,7 @@ router.get('/register', (req, res) => {
 // SIGNUP LOGIC ROUTE
 router.post('/register', (req, res) => {
   // Passport method
-  var newUser = new User({ username: req.body.username });
+  const newUser = new User({ username: req.body.username });
   User.register(newUser, req.body.password, (err, user) => {
     if (err) {
       console.log(err);

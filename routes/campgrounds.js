@@ -1,7 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const middleware = require('../middleware');
-const Campground = require('../models/campground')
+const NodeGeocoder = require('node-geocoder');
+const Campground = require('../models/campground');
+
+const options = {
+  provider: 'google',
+  httpAdapter: 'https',
+  apiKey: process.env.GEOCODER_API_KEY,
+  formatter: null
+};
+
+const geocoder = NodeGeocoder(options);
 
 router.get('/', (req, res) => {
   // GET ALL CAMPGROUNDS FROM DB
@@ -16,15 +26,15 @@ router.get('/', (req, res) => {
 
 router.post('/', middleware.isLoggedIn, (req, res) => {
   // get data from form and add to campgrounds array
-  var name = req.body.name;
-  var image = req.body.image;
-  var price = req.body.price;
-  var desc = req.body.description
-  var author = {
+  const name = req.body.name;
+  const image = req.body.image;
+  const price = req.body.price;
+  const desc = req.body.description
+  const author = {
     id: req.user._id,
     username: req.user.username
   }
-  var newCampground = { name: name, image: image, price: price, description: desc, author: author }
+  const newCampground = { name: name, image: image, price: price, description: desc, author: author }
   // CREATE A NEW CAMPGROUND AND SAVE TO DB
   Campground.create(newCampground, (err, newlyCreated) => {
     if (err) {
@@ -42,7 +52,7 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 
 // CAMPGROUNDS ID
 router.get('/:id', (req, res) => {
-  Campground.findById(req.params.id).populate("comments").exec(function (err, foundCampground) {
+  Campground.findById(req.params.id).populate("comments").exec((err, foundCampground) => {
     if (err) {
       console.log(err)
     } else {
