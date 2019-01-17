@@ -65,27 +65,27 @@
 
 <script>
   function initMap() {
-    var lat = <%= campground.lat %>
-    var lng = <%= campground.lng %>
-    var center = { lat: lat, lng: lng };
-    var map = new google.maps.Map(document.getElementById('map'), {
+    const lat = <%= campground.lat %>
+    const lng = <%= campground.lng %>
+    const center = { lat: lat, lng: lng };
+    const map = new google.maps.Map(document.getElementById('map'), {
       zoom: 8,
       center: center,
       scrollwheel: false
     });
-    var contentString = `
+    const contentString = `
       <strong><%= campground.name %><br />
       <%= campground.location %></strong>
       <p><%= campground.description %></p>
     `
-    var infowindow = new google.maps.InfoWindow({
+    const infowindow = new google.maps.InfoWindow({
       content: contentString
     });
-    var marker = new google.maps.Marker({
+    const marker = new google.maps.Marker({
       position: center,
       map: map
     });
-    marker.addListener('click', function () {
+    marker.addListener('click', () => {
       infowindow.open(map, marker);
     });
   }
