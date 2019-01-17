@@ -16,5 +16,8 @@ Also...
 - Editing campground or comment
 - Deleting campground or comment
 
+### API
+- Added geocoder and google maps api
+
 
 *This is so I can hammer this project out and move on to the next thing.*
