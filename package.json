@@ -15,6 +15,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
+    "locus": "^2.0.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.3.15",
     "node-geocoder": "^3.22.0",
