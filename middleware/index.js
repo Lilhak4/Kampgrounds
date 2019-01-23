@@ -35,7 +35,7 @@ middlewareObj.checkCommentOwnership = (req, res, next) => {
       } else {
         // does user own comment?
         // method of mongoose that returns useable id 
-        if (foundComment.author.id.equals(req.user._id)) {
+        if (foundComment.author.id.equals(req.user._id) || req.user.isAdmin) {
           next();
         } else {
           req.flash('error', 'You do not have permission to do that');
