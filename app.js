@@ -7,6 +7,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
+const moment = require('moment');
 const app = express();
 const Campground = require('./models/campground');
 const Comment = require('./models/comment');
@@ -25,8 +26,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
 // flash needs to be before passport config or a bug will occur
 app.use(flash());
-// seed the DB
-// seedDB();
+app.locals.moment = require(moment);
 
 // ------PASSPORT CONFIG------
 app.use(require('express-session')({
