@@ -12,7 +12,7 @@ middlewareObj.checkCampgroundOwnership = (req, res, next) => {
       } else {
         // does user own campground?
         // method of mongoose that returns useable id 
-        if (foundCampground.author.id.equals(req.user._id)) {
+        if (foundCampground.author.id.equals(req.user._id) || req.user.isAdmin) {
           next();
         } else {
           req.flash('error', 'You do not have permission to do that');
