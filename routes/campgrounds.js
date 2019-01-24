@@ -98,35 +98,39 @@ router.get('/', (req, res) => {
 //   });
 // });
 
-router.post("/", middleware.isLoggedIn, upload.single('image'), (req, res) => {
-  // geocoder configuration
-  geocoder.geocode(req.body.location, (err, data) => {
-    if (err || !data.length) {
-      req.flash('error', 'Invalid address');
+// geocoder configuration
+router.post("/", middleware.isLoggedIn, upload.single('image'), function (req, res) {
+  cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
+    if (err) {
+      req.flash('error', err.message);
       return res.redirect('back');
     }
-    req.body.campground.lat = data[0].latitude;
-    req.body.campground.lng = data[0].longitude;
-    req.body.campground.location = data[0].formattedAddress;
-    // cloudinary configuration
-    cloudinary.v2.uploader.upload(req.file.path, (result, error) => {
+    geocoder.geocode(req.body.location, function (err, data) {
+      if (err || !data.length) {
+        req.flash('error', 'Invalid address');
+        return res.redirect('back');
+      }
+      req.body.campground.lat = data[0].latitude;
+      req.body.campground.lng = data[0].longitude;
+      req.body.campground.location = data[0].formattedAddress;
+
       // add cloudinary url for the image to the campground object under image property
       req.body.campground.image = result.secure_url;
       // add author to campground
       req.body.campground.author = {
         id: req.user._id,
         username: req.user.username
-      };
-      // add to the campground model
-      Campground.create(req.body.campground, (err, newlyCreated) => {
+      }
+      Campground.create(req.body.campground, function (err, campground) {
         if (err) {
-          req.flash('failure', err.message);
+          console.log(err)
+          req.flash('error', err.message);
           return res.redirect('back');
         }
-        console.log(newlyCreated);
         res.redirect('/campgrounds/' + campground.id);
       });
     });
+
   });
 });
 
