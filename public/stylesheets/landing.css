@@ -2,6 +2,10 @@ body {
   background-color: black;
 }
 
+h1 {
+  font-size: 4.0em;
+}
+
 #landing-header {
   z-index: 1;
   position: relative;
