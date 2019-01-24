@@ -45,67 +45,18 @@ router.get('/', (req, res) => {
   });
 });
 
-//CREATE - add new campground to DB
-// router.post("/", middleware.isLoggedIn, upload.single('image'), (req, res) => {
-//   // get data from form and add to campgrounds array
-//   const name = req.body.name;
-//   const image = req.body.image;
-//   const price = req.body.price;
-//   const desc = req.body.description;
-//   const author = {
-//     id: req.user._id,
-//     username: req.user.username
-//   };
-
-// // image upload changes
-// cloudinary.v2.uploader.upload(req.file.path, (result) => {
-//   // add cloudinary url for the image to the campground object under image property
-//   req.body.campground.image = result.secure_url;
-//   // add author to campground
-//   req.body.campground.author = {
-//     id: req.user._id,
-//     username: req.user.username
-//   }
-//   Campground.create(req.body.campground, (err, campground) => {
-//     if (err) {
-//       req.flash('error', err.message);
-//       return res.redirect('back');
-//     }
-//     res.redirect('/campgrounds/' + campground.id);
-//   });
-// });
-// changes from maps
-//   geocoder.geocode(req.body.location, (err, data) => {
-//     if (err || !data.length) {
-//       console.log(err);
-//       req.flash('error', 'Invalid address');
-//       return res.redirect('back');
-//     }
-//     const lat = data[0].latitude;
-//     const lng = data[0].longitude;
-//     const location = data[0].formattedAddress;
-//     const newCampground = { name: name, image: image, price: price, description: desc, author: author, location: location, lat: lat, lng: lng };
-//     // Create a new campground and save to DB
-//     Campground.create(newCampground, (err, newlyCreated) => {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         //redirect back to campgrounds page
-//         console.log(newlyCreated);
-//         res.redirect('/campgrounds/' + campground.id);
-//       }
-//     });
-//   });
-// });
-
-// geocoder configuration
-router.post("/", middleware.isLoggedIn, upload.single('image'), function (req, res) {
-  cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
+//CAMPGROUNDS CREATE - add new campground to DB
+router.post("/", middleware.isLoggedIn, upload.single('image'), (req, res) => {
+  cloudinary.v2.uploader.upload(req.file.path, (err, result) => {
     if (err) {
       req.flash('error', err.message);
       return res.redirect('back');
     }
-    geocoder.geocode(req.body.location, function (err, data) {
+    // Cloudinary add on to filter explicit images
+    // cloudinary.v2.uploader.upload("local_file.jpg",
+    //   { moderation: "webpurify" }),
+    //   (error, result) => { console.log(result); };
+    geocoder.geocode(req.body.location, (err, data) => {
       if (err || !data.length) {
         req.flash('error', 'Invalid address');
         return res.redirect('back');
@@ -121,7 +72,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function (req, r
         id: req.user._id,
         username: req.user.username
       }
-      Campground.create(req.body.campground, function (err, campground) {
+      Campground.create(req.body.campground, (err, campground) => {
         if (err) {
           console.log(err)
           req.flash('error', err.message);
@@ -130,7 +81,6 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function (req, r
         res.redirect('/campgrounds/' + campground.id);
       });
     });
-
   });
 });
 
