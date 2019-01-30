@@ -37,6 +37,12 @@
   text-align: center;
 }
 
+.card {
+  object-fit: cover;
+  height: 300px;
+  width: 100%;
+}
+
 
 
   
