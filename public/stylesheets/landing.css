@@ -17,6 +17,16 @@ h1 {
   color: white;
 }
 
+.landing-btn {
+  font-size: 30px;
+}
+
+@media (max-width: 425px) {
+  .landing-btn {
+    font-size: 35px;
+  }
+}
+
 .slideshow { 
   position: fixed;
   width: 100%;

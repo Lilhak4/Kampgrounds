@@ -44,11 +44,11 @@
 }
 
 @media (max-width: 1200px) {
-    .card {
-        object-fit: cover;
-        height: 270px;
-        width: 100%;
-    }
+  .card {
+    object-fit: cover;
+    height: 270px;
+    width: 100%;
+  }
 }
 
 @media (max-width: 992px) {
@@ -63,24 +63,13 @@
   font-size: 1.75em;
 }
 
+@media (max-width: 425px) {
+  #navbar {
+    font-size: 2.0em;
+  }
+}
+
 .navbar-brand {
   font-size: 2.5em;
 }
 
-/* @media (max-width: 425px) {
-  #navbar {
-    font-size: 3em;
-  }
-}
-
-@media (max-width: 425px) {
-  .navbar-brand {
-    font-size: 2.0em;
-  }
-} */
-
-@media (min-width: 425px) {
-  .landing-btn {
-    font-size: 25px;
-  }
-}
