@@ -25,8 +25,7 @@ router.post('/register', (req, res) => {
     if (err) {
       console.log(err);
       // passport handles the specific message through err
-      // req.flash('error', err.message);
-      return res.render('register')
+      return res.render('register', { error: err.message })
     }
     passport.authenticate("local")(req, res, () => {
       req.flash('success', 'Welcome to Kampgrounds! ' + user.username);
