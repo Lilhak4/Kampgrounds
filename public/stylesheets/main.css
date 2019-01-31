@@ -43,6 +43,22 @@
   width: 100%;
 }
 
+@media (max-width: 1200px) {
+    .card {
+        object-fit: cover;
+        height: 270px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 992px) {
+  .card {
+    object-fit: cover;
+    height: 350px;
+    width: 100%;
+  }
+}
+
 
 
   
