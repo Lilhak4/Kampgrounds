@@ -59,7 +59,28 @@
   }
 }
 
+#navbar {
+  font-size: 1.75em;
+}
 
+.navbar-brand {
+  font-size: 2.5em;
+}
 
-  
+/* @media (max-width: 425px) {
+  #navbar {
+    font-size: 3em;
+  }
+}
 
+@media (max-width: 425px) {
+  .navbar-brand {
+    font-size: 2.0em;
+  }
+} */
+
+@media (min-width: 425px) {
+  .landing-btn {
+    font-size: 25px;
+  }
+}
