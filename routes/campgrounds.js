@@ -120,27 +120,25 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single('image'), 
     req.body.campground.lng = data[0].longitude;
     req.body.campground.location = data[0].formattedAddress;
 
-    Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, campground) => {
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground, async (err, campground) => {
       if (err) {
         req.flash("error", err.message);
         res.redirect("back");
       } else {
         if (req.file) {
-          cloudinary.v2.uploader.destroy(campground.imageId, (err) => {
-            if (err) {
-              req.flash("error", err.message);
-              return res.redirect("back");
-            }
-            cloudinary.v2.uploader.upload(req.file.path, (err, result) => {
-              if (err) {
-                req.flash("error", err.message);
-                return res.redirect("back");
-              }
-              campground.image = result.secure_url;
-              campground.imageId = result.public_id;
-            });
-          });
+          try {
+            await cloudinary.v2.uploader.destroy(campground.imageId);
+            let result = await cloudinary.v2.uploader.upload(req.file.path);
+            campground.image = result.secure_url;
+            campground.imageId = result.public_id;
+          } catch (err) {
+            req.flash("error", err.message);
+            res.redirect("back");
+          }
         }
+        campground.name = req.body.campground.name ? req.body.campground.name : campground.name;
+        campground.description = req.body.campground.description ? req.body.campground.description : campground.name;
+        campground.save();
         req.flash("success", "Successfully Updated!");
         res.redirect("/campgrounds/" + campground._id);
       }
