@@ -108,40 +108,48 @@ router.get('/:id/edit', middleware.checkCampgroundOwnership, (req, res) => {
 });
 
 // UPDATE CAMPGROUND
-router.put("/:id", middleware.checkCampgroundOwnership, (req, res) => {
-  geocoder.geocode(req.body.location, (err, data) => {
-    if (err || !data.length) {
-      console.log(err);
-      req.flash('error', 'Invalid address');
+router.put("/:id", middleware.checkCampgroundOwnership, upload.single('image'), (req, res) => {
+  if (req.file) {
+    cloudinary.v2.uploader.destroy(campground.imageId);
+  }
+  cloudinary.v2.uploader.upload(req.file.path, (err, result) => {
+    if (err) {
+      req.flash('error', err.message);
       return res.redirect('back');
     }
-    req.body.campground.lat = data[0].latitude;
-    req.body.campground.lng = data[0].longitude;
-    req.body.campground.location = data[0].formattedAddress;
+    geocoder.geocode(req.body.location, (err, data) => {
+      if (err || !data.length) {
+        console.log(err);
+        req.flash('error', 'Invalid address');
+        return res.redirect('back');
+      }
+      req.body.campground.lat = data[0].latitude;
+      req.body.campground.lng = data[0].longitude;
+      req.body.campground.location = data[0].formattedAddress;
 
-    Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, campground) => {
+      Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, campground) => {
+        if (err) {
+          req.flash("error", err.message);
+          res.redirect("back");
+        } else {
+          req.flash("success", "Successfully Updated!");
+          res.redirect("/campgrounds/" + campground._id);
+        }
+      });
+    });
+  });
+
+  // DESTROY CAMPGROUND
+  router.delete('/:id', middleware.checkCampgroundOwnership, (req, res) => {
+    Campground.findByIdAndRemove(req.params.id, (err) => {
       if (err) {
-        req.flash("error", err.message);
-        res.redirect("back");
+        req.flash("error", "Campground was not deleted");
+        res.redirect('/campgrounds')
       } else {
-        req.flash("success", "Successfully Updated!");
-        res.redirect("/campgrounds/" + campground._id);
+        req.flash("success", "Campground was successfully deleted");
+        res.redirect('/campgrounds')
       }
     });
   });
-});
 
-// DESTROY CAMPGROUND
-router.delete('/:id', middleware.checkCampgroundOwnership, (req, res) => {
-  Campground.findByIdAndRemove(req.params.id, (err) => {
-    if (err) {
-      req.flash("error", "Campground was not deleted");
-      res.redirect('/campgrounds')
-    } else {
-      req.flash("success", "Campground was successfully deleted");
-      res.redirect('/campgrounds')
-    }
-  });
-});
-
-module.exports = router;
+  module.exports = router;
