@@ -148,13 +148,17 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single('image'), 
 
 // DESTROY CAMPGROUND
 router.delete('/:id', middleware.checkCampgroundOwnership, (req, res) => {
-  Campground.findByIdAndRemove(req.params.id, (err) => {
-    if (err) {
-      req.flash("error", "Campground was not deleted");
-      res.redirect('/campgrounds')
-    } else {
+  Campground.findByIdAndRemove(req.params.id, async (err) => {
+    try {
+      await cloudinary.v2.uploader.destroy(campground.imageId);
       req.flash("success", "Campground was successfully deleted");
-      res.redirect('/campgrounds')
+      res.redirect('/campgrounds');
+    }
+    catch (err) {
+      if (err) {
+        req.flash("error", "Campground was not deleted");
+        res.redirect('/campgrounds');
+      }
     }
   });
 });
