@@ -32,6 +32,10 @@
   font-size: 1.5em;
 }
 
+.glyphicon-star-empty {
+  font-size: 75px
+}
+
 .back-campgrounds {
   font-size: 2em;
   text-align: center;
