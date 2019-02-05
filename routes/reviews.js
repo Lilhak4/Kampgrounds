@@ -18,3 +18,16 @@ router.get("/", (req, res) => {
     res.render("reviews/index", { campground: campground });
   });
 });
+
+// Reviews New
+router.get("/new", middleware.isLoggedIn, middleware.checkReviewExistence, function (req, res) {
+  // middleware.checkReviewExistence checks if a user already reviewed the campground, only one review per user is allowed
+  Campground.findById(req.params.id, function (err, campground) {
+    if (err) {
+      req.flash("error", err.message);
+      return res.redirect("back");
+    }
+    res.render("reviews/new", { campground: campground });
+
+  });
+});
