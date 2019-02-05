@@ -63,8 +63,8 @@ router.post("/", middleware.isLoggedIn, middleware.checkReviewExistence, (req, r
 });
 
 // REVIEWS EDIT
-router.get("/:review_id/edit", middleware.checkReviewOwnership, function (req, res) {
-  Review.findById(req.params.review_id, function (err, foundReview) {
+router.get("/:review_id/edit", middleware.checkReviewOwnership, (req, res) => {
+  Review.findById(req.params.review_id, (err, foundReview) => {
     if (err) {
       req.flash("error", err.message);
       return res.redirect("back");
@@ -73,7 +73,27 @@ router.get("/:review_id/edit", middleware.checkReviewOwnership, function (req, r
   });
 });
 
-
+// REVIEWS UPDATE
+router.put("/:review_id", middleware.checkReviewOwnership, (req, res) => {
+  Review.findByIdAndUpdate(req.params.review_id, req.body.review, { new: true }, (err, updatedReview) => {
+    if (err) {
+      req.flash("error", err.message);
+      return res.redirect("back");
+    }
+    Campground.findById(req.params.id).populate("reviews").exec((err, campground) => {
+      if (err) {
+        req.flash("error", err.message);
+        return res.redirect("back");
+      }
+      // recalculate campground average
+      campground.rating = calculateAverage(campground.reviews);
+      //save changes
+      campground.save();
+      req.flash("success", "Your review was successfully edited.");
+      res.redirect('/campgrounds/' + campground._id);
+    });
+  });
+});
 
 
 function calculateAverage(reviews) {
