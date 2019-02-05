@@ -87,7 +87,7 @@ middlewareObj.checkReviewExistence = (req, res, next) => {
         res.redirect("back");
       } else {
         // check if req.user._id exists in foundCampground.reviews
-        var foundUserReview = foundCampground.reviews.some((review) => {
+        const foundUserReview = foundCampground.reviews.some((review) => {
           return review.author.id.equals(req.user._id);
         });
         if (foundUserReview) {

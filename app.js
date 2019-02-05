@@ -15,6 +15,7 @@ const User = require('./models/user');
 
 const indexRoute = require('./routes/index')
 const campgroundRoute = require('./routes/campgrounds');
+const reviewRoute = require("./routes/reviews")
 const commentRoute = require('./routes/comments');
 
 // newurlparser used because of deprecating url error, mongo version is greater than 3.1.1
@@ -53,6 +54,7 @@ app.use((req, res, next) => {
 app.use('/', indexRoute);
 app.use('/campgrounds', campgroundRoute);
 app.use('/campgrounds/:id/comments', commentRoute);
+app.use('/campgrounds/:id/reviews', reviewRoute);
 
 // -----SERVER-----
 app.listen(3000, () => {
