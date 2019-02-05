@@ -4,7 +4,7 @@ const Campground = require("../models/campground");
 const Review = require("../models/review");
 const middleware = require("../middleware");
 
-// Reviews Index
+// REVIEWS INDEX
 router.get("/", (req, res) => {
   Campground.findById(req.params.id).populate({
     path: "reviews",
@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
   });
 });
 
-// Reviews New
+// REVIEWS NEW
 router.get("/new", middleware.isLoggedIn, middleware.checkReviewExistence, (req, res) => {
   // middleware.checkReviewExistence checks if a user already reviewed the campground, only one review per user is allowed
   Campground.findById(req.params.id, (err, campground) => {
@@ -32,10 +32,10 @@ router.get("/new", middleware.isLoggedIn, middleware.checkReviewExistence, (req,
   });
 });
 
-// Reviews Create
+// REVIEWS CREATE
 router.post("/", middleware.isLoggedIn, middleware.checkReviewExistence, (req, res) => {
   //lookup campground using ID
-  Campground.findById(req.params.id).populate("reviews").exec(err, campground) => {
+  Campground.findById(req.params.id).populate("reviews").exec((err, campground) => {
     if (err) {
       req.flash("error", err.message);
       return res.redirect("back");
@@ -61,3 +61,28 @@ router.post("/", middleware.isLoggedIn, middleware.checkReviewExistence, (req, r
     });
   });
 });
+
+// REVIEWS EDIT
+router.get("/:review_id/edit", middleware.checkReviewOwnership, function (req, res) {
+  Review.findById(req.params.review_id, function (err, foundReview) {
+    if (err) {
+      req.flash("error", err.message);
+      return res.redirect("back");
+    }
+    res.render("reviews/edit", { campground_id: req.params.id, review: foundReview });
+  });
+});
+
+
+
+
+function calculateAverage(reviews) {
+  if (reviews.length === 0) {
+    return 0;
+  }
+  var sum = 0;
+  reviews.forEach(function (element) {
+    sum += element.rating;
+  });
+  return sum / reviews.length;
+}

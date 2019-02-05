@@ -1,5 +1,6 @@
-const Campground = require('../models/campground')
-const Comment = require('../models/comment')
+const Campground = require('../models/campground');
+const Comment = require('../models/comment');
+const Review = require('../models/review');
 const middlewareObj = {};
 
 middlewareObj.checkCampgroundOwnership = (req, res, next) => {
@@ -55,6 +56,10 @@ middlewareObj.isLoggedIn = (req, res, next) => {
   }
   req.flash('error', 'You need to be logged in to do that');
   res.redirect("/login");
+}
+
+middlewareObj.checkReviewOwnership = (req, res, next) => {
+
 }
 
 module.exports = middlewareObj
