@@ -51,6 +51,14 @@
   font-size: 15px;
 }
 
+@media (min-width: 1440px) {
+  .card {
+    object-fit: cover;
+    height: 320px;
+    width: 100%;
+  }
+}
+
 @media (max-width: 1440px) {
   .card {
     object-fit: cover;
