@@ -60,7 +60,7 @@ middlewareObj.isLoggedIn = (req, res, next) => {
 
 middlewareObj.checkReviewOwnership = (req, res, next) => {
   if (req.isAuthenticated()) {
-    Review.findById(req.params.review_id, err, foundReview => {
+    Review.findById(req.params.review_id, (err, foundReview) => {
       if (err || !foundReview) {
         res.redirect("back");
       } else {
