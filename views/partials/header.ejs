@@ -28,8 +28,10 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li class="<%= typeof page !== 'undefined' && page === 'campgrounds' ? 'active' : '' %>"><a href="/campgrounds">Home</a></li>
+        <li class="<%= typeof page !== 'undefined' && page === 'profile' ? 'active' : '' %>"><a href="/users/">Profile</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="
+            nav navbar-nav navbar-right">
         <% if(!currentUser){ %>
         <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
         <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign

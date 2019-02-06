@@ -4,6 +4,7 @@ const middleware = require('../middleware');
 const NodeGeocoder = require('node-geocoder');
 const Campground = require('../models/campground');
 const Review = require("../models/review");
+const User = require('../models/user');
 const multer = require('multer');
 // multer enable
 const storage = multer.diskStorage({
