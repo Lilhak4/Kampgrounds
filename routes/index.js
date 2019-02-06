@@ -17,7 +17,13 @@ router.get('/register', (req, res) => {
 // SIGNUP LOGIC ROUTE
 router.post('/register', (req, res) => {
   // Passport method
-  const newUser = new User({ username: req.body.username });
+  const newUser = new User({
+    username: req.body.username,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    avatar: req.body.avatar
+  });
   if (req.body.adminCode === 'heymonkey') {
     newUser.isAdmin = true;
   }

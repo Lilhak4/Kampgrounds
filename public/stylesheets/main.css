@@ -23,9 +23,14 @@
   padding-bottom: 2vh;
 }
 
+.campground-name {
+  margin-bottom: 5vh;
+}
+
 .lead {
   padding-top: 2vh;
   text-align: center;
+  font-size: 2.0em;
 }
 
 .form-group {
@@ -70,15 +75,23 @@
 @media (max-width: 1200px) {
   .card {
     object-fit: cover;
-    height: 270px;
+    height: 290px;
     width: 100%;
   }
 }
 
+/* @media (min-width: 1025px) and (max-width: 1199) {
+  .card {
+    object-fit: cover;
+    height: 290px;
+    width: 100%;
+  }
+} */
+
 @media (max-width: 1024px) {
   .card {
     object-fit: cover;
-    height: 285px;
+    height: 290px;
     width: 100%;
   }
 }
