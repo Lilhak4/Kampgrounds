@@ -128,3 +128,5 @@ function calculateAverage(reviews) {
   });
   return sum / reviews.length;
 }
+
+module.exports = router;
