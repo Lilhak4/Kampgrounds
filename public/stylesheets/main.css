@@ -33,7 +33,7 @@
 }
 
 .glyphicon-star-empty {
-  font-size: 75px
+  font-size: 50px
 }
 
 .back-campgrounds {
@@ -45,6 +45,13 @@
   object-fit: cover;
   height: 300px;
   width: 100%;
+}
+
+.btn-success {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
 }
 
 @media (max-width: 1200px) {
