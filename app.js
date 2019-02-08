@@ -62,4 +62,6 @@ app.use('/campgrounds/:id/reviews', reviewRoute);
 //   console.log("Yelp Camp Server Online");
 // });
 
-app.set('port', (process.env.PORT || 5000));
+app.listen(process.env.PORT, process.env.IP, () => {
+  console.log('Server listening on port: ' + process.env.PORT);
+});
