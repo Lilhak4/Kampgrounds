@@ -18,10 +18,10 @@ const campgroundRoute = require('./routes/campgrounds');
 const reviewRoute = require("./routes/reviews")
 const commentRoute = require('./routes/comments');
 
+const url = process.env.DATABASEURL || "mongodb://localhost/kampgrounds"
+
 // newurlparser used because of deprecating url error, mongo version is greater than 3.1.1
-// Switch to local host db when working on non production site
-mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
-// mongoose.connect('mongodb://kahlil:Cervantes004@ds127015.mlab.com:27015/kampgrounds');
+mongoose.connect(url, { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
