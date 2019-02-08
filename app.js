@@ -19,8 +19,9 @@ const reviewRoute = require("./routes/reviews")
 const commentRoute = require('./routes/comments');
 
 // newurlparser used because of deprecating url error, mongo version is greater than 3.1.1
-// mongoose.connect('mongodb://localhost/kampgrounds', { useNewUrlParser: true });
-mongoose.connect('mongodb://kahlil:Cervantes004@ds127015.mlab.com:27015/kampgrounds')
+// Switch to local host db when working on non production site
+mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
+// mongoose.connect('mongodb://kahlil:Cervantes004@ds127015.mlab.com:27015/kampgrounds');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
