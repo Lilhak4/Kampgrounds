@@ -59,9 +59,10 @@ app.use('/campgrounds/:id/reviews', reviewRoute);
 
 // -----SERVER-----
 // app.listen(3000, () => {
-//   console.log("Yelp Camp Server Online");
+//   console.log("Kampgrounds Server Online");
 // });
 
-app.listen(process.env.PORT, process.env.IP, () => {
-  console.log('Server listening on port: ' + process.env.PORT);
+var port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log("The Kampgrounds Server Has Started!");
 });
