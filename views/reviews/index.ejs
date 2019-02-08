@@ -15,11 +15,11 @@
           </h5>
           <% } else { %>
           <p>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star <% if (campground.rating > 1.5) { %> checked <% } %>"></span>
-            <span class="fa fa-star <% if (campground.rating > 2.5) { %> checked <% } %>"></span>
-            <span class="fa fa-star <% if (campground.rating > 3.5) { %> checked <% } %>"></span>
-            <span class="fa fa-star <% if (campground.rating > 4.5) { %> checked <% } %>"></span>
+            <span class="fas fa-star"></span>
+            <span class="far fa-star <% if (campground.rating > 1.5) { %> fas fa-star <% } %>"></span>
+            <span class="far fa-star <% if (campground.rating > 2.5) { %> fas fa-star <% } %>"></span>
+            <span class="far fa-star <% if (campground.rating > 3.5) { %> fas fa-star <% } %>"></span>
+            <span class="far fa-star <% if (campground.rating > 4.5) { %> fas fa-star <% } %>"></span>
             <em>(total reviews:
               <%= campground.reviews.length %>)</em>
           </p>
@@ -34,12 +34,13 @@
           <% campground.reviews.forEach(function(review){ %>
           <div class="row">
             <div class="col-md-3">
-              <%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %>
-              <%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
+              <%- '<span class="fas fa-star"></span>'.repeat(review.rating) %>
+              <%- '<span class="far fa-star"></span>'.repeat(5 - review.rating) %>
               <div>Review by: <strong>
                   <%= review.author.username %></strong></div>
               <span><em>
                   <%= review.updatedAt.toDateString() %></em></span>
+              <strong>
             </div>
             <div class="col-md-9">
               <p style="text-align: justify; word-wrap: break-word;">
