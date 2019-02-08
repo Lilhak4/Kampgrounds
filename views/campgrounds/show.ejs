@@ -53,10 +53,10 @@
       <% } else { %>
       <p>
         <span class="fas fa-star"></span>
-        <span class="fa<% if (campground.rating > 1.5) { %> s <% } %> fa-star "></span>
-        <span class="fa<% if (campground.rating > 2.5) { %> s <% } %> fa-star "></span>
-        <span class="fa<% if (campground.rating > 3.5) { %> s <% } %> fa-star "></span>
-        <span class="fa<% if (campground.rating > 4.5) { %> s <% } %> fa-star "></span>
+        <span class="far fa-star <% if (campground.rating > 1.5) { %> fas fa-star <% } %>"></span>
+        <span class="far fa-star <% if (campground.rating > 2.5) { %> fas fa-star <% } %>"></span>
+        <span class="far fa-star <% if (campground.rating > 3.5) { %> fas fa-star <% } %>"></span>
+        <span class="far fa-star <% if (campground.rating > 4.5) { %> fas fa-star <% } %>"></span>
         <em>(total reviews:
           <%= campground.reviews.length %>)</em>
       </p>
