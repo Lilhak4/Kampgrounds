@@ -19,7 +19,7 @@ const reviewSchema = mongoose.Schema({
   text: {
     type: String
   },
-  // author id and username fields
+  // author id and username fields associated with review
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
