@@ -58,6 +58,8 @@ app.use('/campgrounds/:id/comments', commentRoute);
 app.use('/campgrounds/:id/reviews', reviewRoute);
 
 // -----SERVER-----
-app.listen(3000, () => {
-  console.log("Yelp Camp Server Online");
-});
+// app.listen(3000, () => {
+//   console.log("Yelp Camp Server Online");
+// });
+
+app.set('port', (process.env.PORT || 5000));
