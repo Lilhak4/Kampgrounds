@@ -143,7 +143,6 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single('image'), 
 
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, async (err, campground) => {
       if (err) {
-        console.log(err)
         req.flash("error", err.message);
         res.redirect("back");
       } else {
@@ -154,7 +153,6 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single('image'), 
             campground.image = result.secure_url;
             campground.imageId = result.public_id;
           } catch (err) {
-            console.log(err);
             req.flash("error", err.message);
             res.redirect("back");
           }
