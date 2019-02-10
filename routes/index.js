@@ -7,7 +7,7 @@ const Campground = require('../models/campground');
 
 // HOME ROUTE
 router.get('/', (req, res) => {
-  res.render('landing')
+  res.render('landing');
 });
 
 // SIGNUP FORM ROUTE
