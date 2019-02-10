@@ -153,6 +153,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, upload.single('image'), 
             campground.image = result.secure_url;
             campground.imageId = result.public_id;
           } catch (err) {
+            console.log(err);
             req.flash("error", err.message);
             res.redirect("back");
           }
@@ -188,34 +189,5 @@ router.delete('/:id', middleware.checkCampgroundOwnership, (req, res) => {
     }
   });
 });
-
-
-
-// router.delete("/:id", middleware.checkCampgroundOwnership, (req, res) => {
-//   Campground.findById(req.params.id, (err, campground) => {
-//     if (err) {
-//       res.redirect("/campgrounds");
-//     } else {
-//       // deletes all comments associated with the campground
-//       Comment.remove({ "_id": { $in: campground.comments } }, (err) => {
-//         if (err) {
-//           console.log(err);
-//           return res.redirect("/campgrounds");
-//         }
-//         // deletes all reviews associated with the campground
-//         Review.remove({ "_id": { $in: campground.reviews } }, (err) => {
-//           if (err) {
-//             console.log(err);
-//             return res.redirect("/campgrounds");
-//           }
-//           //  delete the campground
-//           campground.remove();
-//           req.flash("success", "Campground deleted successfully!");
-//           res.redirect("/campgrounds");
-//         });
-//       });
-//     }
-//   });
-// });
 
 module.exports = router;
