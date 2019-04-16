@@ -5,6 +5,7 @@ const NodeGeocoder = require('node-geocoder');
 const Campground = require('../models/campground');
 const Review = require("../models/review");
 const User = require('../models/user');
+const cloudinary = require('cloudinary');
 const multer = require('multer');
 // multer enable
 const storage = multer.diskStorage({
@@ -20,7 +21,6 @@ const imageFilter = (req, file, cb) => {
 };
 const upload = multer({ storage: storage, fileFilter: imageFilter })
 // cloudinary enable
-const cloudinary = require('cloudinary');
 cloudinary.config({
   cloud_name: 'ddgwilv7v',
   api_key: process.env.CLOUDINARY_API_KEY,
