@@ -53,10 +53,10 @@ router.post("/login", passport.authenticate("local",
     failureRedirect: "/login",
     failureFlash: true,
     successFlash: 'Welcome to Kampgrounds!'
-  }), (req, res) => {
+    }), (req, res) => {
   });
 
-// LOGOUT ROUT
+// LOGOUT ROUTE
 router.get('/logout', (req, res) => {
   req.logout();
   req.flash('success', 'Logged You Out')
