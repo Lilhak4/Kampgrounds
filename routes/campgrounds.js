@@ -5,6 +5,7 @@ const NodeGeocoder = require('node-geocoder');
 const Campground = require('../models/campground');
 const Review = require("../models/review");
 const User = require('../models/user');
+const cloudinary = require('cloudinary');
 const multer = require('multer');
 // multer enable
 const storage = multer.diskStorage({
@@ -20,7 +21,6 @@ const imageFilter = (req, file, cb) => {
 };
 const upload = multer({ storage: storage, fileFilter: imageFilter })
 // cloudinary enable
-const cloudinary = require('cloudinary');
 cloudinary.config({
   cloud_name: 'ddgwilv7v',
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -91,7 +91,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), (req, res) => {
 // CAMPGROUNDS NEW
 router.get('/new', middleware.isLoggedIn, (req, res) => {
   res.render('campgrounds/new');
-})
+});
 
 // SHOW - shows more info about one campground
 router.get("/:id", (req, res) => {
@@ -120,6 +120,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// UPDATE CAMPGROUND ROUTE
 router.get('/:id/edit', middleware.checkCampgroundOwnership, (req, res) => {
   // is user logged in?
   Campground.findById(req.params.id, (err, foundCampground) => {
@@ -127,7 +128,7 @@ router.get('/:id/edit', middleware.checkCampgroundOwnership, (req, res) => {
   });
 });
 
-// UPDATE CAMPGROUND
+// UPDATE CAMPGROUND LOGIC
 router.put("/:id", middleware.checkCampgroundOwnership, upload.single('image'), (req, res) => {
   geocoder.geocode(req.body.location, (err, data) => {
     if (err || !data.length) {

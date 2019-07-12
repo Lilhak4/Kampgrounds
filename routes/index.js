@@ -53,7 +53,7 @@ router.post("/login", passport.authenticate("local",
     failureRedirect: "/login",
     failureFlash: true,
     successFlash: 'Welcome to Kampgrounds!'
-  }), (req, res) => {
+    }), (req, res) => {
   });
 
 // LOGOUT ROUTE

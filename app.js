@@ -59,11 +59,13 @@ app.use('/campgrounds/:id/comments', commentRoute);
 app.use('/campgrounds/:id/reviews', reviewRoute);
 
 // -----SERVER-----
+// enable when run server locally
 // app.listen(3000, () => {
 //   console.log("Kampgrounds Server Online");
 // });
 
+// disable when run locally
 var port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log("The Kampgrounds Server Has Started!");
+  console.log("The Kampgrounds Server Online");
 });
