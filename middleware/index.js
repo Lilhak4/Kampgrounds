@@ -65,7 +65,7 @@ middlewareObj.checkReviewOwnership = (req, res, next) => {
         res.redirect("back");
       } else {
         // does user own the comment?
-        if (foundReview.author.id.equals(req.user._id)) {
+        if (foundReview.author.id.equals(req.user._id) || req.user.isAdmin) {
           next();
         } else {
           req.flash("error", "You don't have permission to do that");
